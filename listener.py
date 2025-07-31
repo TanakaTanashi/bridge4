@@ -51,18 +51,17 @@ def scan_blocks(chain, start_block, end_block, contract_address, eventfile='depo
         print( f"Scanning blocks {start_block} - {end_block} on {chain}" )
 
     if end_block - start_block < 30:
-        # Single filter
-        events = contract.events.Deposit.create_filter(
-            fromBlock=start_block,
-            toBlock=end_block,
+        events = contract.events.Deposit.get_logs(
+            from_block=start_block,
+            to_block=end_block,
             argument_filters={}
-        ).get_all_entries()
+        )
         _write_events(events)
     else:
         for blk in range(start_block, end_block + 1):
-            events = contract.events.Deposit.create_filter(
-                fromBlock=blk,
-                toBlock=blk,
+            events = contract.events.Deposit.get_logs(
+                from_block=blk,
+                to_block=blk,
                 argument_filters={}
-            ).get_all_entries()
+            )
             _write_events(events)
