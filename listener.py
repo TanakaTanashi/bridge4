@@ -29,13 +29,17 @@ def scan_blocks(chain, start_block, end_block, contract_address, eventfile='depo
         w3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)
 
     DEPOSIT_ABI = json.loads(
-        '[ { "anonymous": false, "inputs": [ '
-        '{ "indexed": true, "internalType": "address", "name": "token", "type": "address" },'
-        ' { "indexed": true, "internalType": "address", "name": "recipient", "type": "address" },'
-        ' { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" } ],'
-        ' "name": "Deposit", "type": "event" }]' }
+    '[{'
+      '"anonymous": false,'
+      '"inputs": ['
+        '{"indexed": true, "internalType": "address", "name": "token", "type": "address"},'
+        '{"indexed": true, "internalType": "address", "name": "recipient", "type": "address"},'
+        '{"indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256"}'
+      '],'
+      '"name": "Deposit",'
+      '"type": "event"'
+    '}]'
     )
-    contract = w3.eth.contract(address=Web3.to_checksum_address(contract_address), abi=DEPOSIT_ABI)
 
     if start_block == 'latest':
         start_block = w3.eth.get_block_number()
