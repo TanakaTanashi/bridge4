@@ -65,8 +65,8 @@ def scan_blocks(chain, start_block, end_block, contract_address,
     if end_block - start_block < 30:
 
         events = contract.events.Deposit.create_filter(
-            fromBlock=start_block,
-            toBlock=end_block,
+            from_block=start_block,
+            to_block=end_block,
             argument_filters={}
         ).get_all_entries()
         _write_events(events)
@@ -74,8 +74,8 @@ def scan_blocks(chain, start_block, end_block, contract_address,
 
         for blk in range(start_block, end_block + 1):
             events = contract.events.Deposit.create_filter(
-                fromBlock=blk,
-                toBlock=blk,
-                argument_filters={}
+                from_block=blk,
+                to_block=blk,
+                rgument_filters={}
             ).get_all_entries()
             _write_events(events)
