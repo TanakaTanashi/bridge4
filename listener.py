@@ -76,6 +76,6 @@ def scan_blocks(chain, start_block, end_block, contract_address,
             events = contract.events.Deposit.create_filter(
                 from_block=blk,
                 to_block=blk,
-                rgument_filters={}
+                argument_filters={}
             ).get_all_entries()
             _write_events(events)
